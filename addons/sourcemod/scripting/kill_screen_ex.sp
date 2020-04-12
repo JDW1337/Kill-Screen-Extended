@@ -14,7 +14,7 @@ public Plugin myinfo =
 {
 	name = "Kill Screen Extended",
 	author = "JDW",
-	version = "1.0",
+	version = "1.1",
 	url = "devengine.tech"
 };
 
