@@ -1,0 +1,68 @@
+"Phrases"
+{
+    "MIN_DURATION"
+    {
+        "ru" "Минимальное время затемнения"
+        "en" "Minimum dimming time"
+    }
+    "MAX_DURATION"
+    {
+        "ru" "Максимальное время затемнения"
+        "en" "Maximum dimming time"
+    }
+    "ENABLED"
+    {
+        "ru" "включен"
+        "en" "enabled"
+    }
+    "DISABLED"
+    {
+        "ru" "отключен"
+        "en" "disabled"
+    }
+    "MILLISECONDS"
+    {
+        "ru" "мс."
+        "en" "ms."
+    }
+    "MENU_TITLE"
+    {
+        "ru" "Kill Screen Extended"
+        "en" "Kill Screen Extended"
+    }
+    "STATUS"
+    {
+        "ru" "Статус"
+        "en" "Status"
+    }
+    "ADD_OR_SUB"
+    {
+        "ru" "По сколько прибавлять/отнимать"
+        "en" "How much to add/subtract"
+    }
+    "RED"
+    {
+        "ru" "Красный"
+        "en" "Red"
+    }
+    "GREEN"
+    {
+        "ru" "Зеленый"
+        "en" "Green"
+    }
+    "BLUE"
+    {
+        "ru" "Синий"
+        "en" "Blue"
+    }
+    "ALPHA"
+    {
+        "ru" "Прозрачность"
+        "en" "Transparency"
+    }
+    "DURATION"
+    {
+        "ru" "Время затемнения"
+        "en" "Dimming time"
+    }
+}
