@@ -10,6 +10,11 @@
         "ru" "Максимальное время затемнения"
         "en" "Maximum dimming time"
     }
+    "PRIVATE_MODE"
+    {
+        "ru" "Приватный режим (для блокировки команды)"
+        "en" "Private Mode (to block a command)"
+    }
     "ENABLED"
     {
         "ru" "включен"
@@ -24,6 +29,11 @@
     {
         "ru" "мс."
         "en" "ms."
+    }
+    "NO_ACCESS"
+    {
+        "ru" "{team}[KSE]{green}У вас нет доступа"
+        "en" "{team}[KSE]{green}You do not have access"
     }
     "MENU_TITLE"
     {

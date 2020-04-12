@@ -4,6 +4,7 @@
 
 #include <sourcemod>
 #include <clientprefs>
+#include <devcolors>
 
 #pragma semicolon 1
 #pragma newdecls required
@@ -70,7 +71,9 @@ enum
 	SUB
 }
 
-bool pEnable[MAXPLAYERS + 1];
+bool pEnable[MAXPLAYERS + 1],
+	 pAccess[MAXPLAYERS + 1],
+	 privateMode;
 
 int pColors[MAXPLAYERS + 1][COLORS],
 	pDuration[MAXPLAYERS + 1],
@@ -115,11 +118,42 @@ public void OnPluginEnd()
 	}
 }
 
+public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int len)
+{
+	CreateNative("KSE_GrantAccess", Native_GrantAccess);
+
+    RegPluginLibrary("kse");
+    return APLRes_Success;
+}
+
+public int Native_GrantAccess(Handle plugin, int params)
+{
+	static int client;
+
+	client = GetNativeCell(1);
+
+	if(client && client <= MaxClients && !IsFakeClient(client))
+	{
+		pAccess[client] = true;
+	}
+	else 
+	{
+		return 0;
+	}
+
+	return 1;
+}
+
 public void Event_PlayerDeath(Event event, const char[] name, bool dontBroadcast)
 {
 	static int client;
 
 	client = GetClientOfUserId(event.GetInt("attacker"));
+
+	if(privateMode && !pAccess[client])
+	{
+		return;
+	}
 
 	if(client && !IsFakeClient(client) && pEnable[client])
 	{
@@ -197,6 +231,8 @@ public void OnClientDisconnect(int client)
 
 			SetClientCookie(client, pCookie[i], buffer);
 		}
+
+		pAccess[client] = false;
 	}
 }
 
@@ -309,6 +345,13 @@ public int Handler_ShowMenu(Menu menu, MenuAction action, int client, int item)
 
 public Action ShowMenuCommand(int client, int args)
 {
+	if(privateMode && !pAccess[client])
+	{
+		DCPrintToChat(client, "%T", "NO_ACCESS", client);
+
+		return Plugin_Handled;
+	}
+
 	ShowMenu(client);
 
 	return Plugin_Handled;
@@ -322,6 +365,11 @@ public void CVarMinDuration(ConVar cvar, const char[] oldValue, const char[] new
 public void CVarMaxDuration(ConVar cvar, const char[] oldValue, const char[] newValue)
 { 
     duration[MAX] = cvar.IntValue;
+}
+
+public void CVarPrivateMode(ConVar cvar, const char[] oldValue, const char[] newValue)
+{ 
+    privateMode = cvar.BoolValue;
 }
 
 void ShowMenu(const int client)
@@ -375,15 +423,19 @@ void InitConVars()
 {
 	ConVar cvar;
 
-	char buffer[64];
+	char buffer[128];
 
-	FormatEx(buffer, 64, "%t", "MIN_DURATION");
+	FormatEx(buffer, 128, "%t", "MIN_DURATION");
     (cvar = CreateConVar("kse_min_duration", "500", buffer)).AddChangeHook(CVarMinDuration);
     duration[MIN] = cvar.IntValue;
 
-	FormatEx(buffer, 64, "%t", "MAX_DURATION");
+	FormatEx(buffer, 128, "%t", "MAX_DURATION");
     (cvar = CreateConVar("kse_max_duration", "1500", buffer)).AddChangeHook(CVarMaxDuration);
     duration[MAX] = cvar.IntValue;
+
+	FormatEx(buffer, 128, "%t", "PRIVATE_MODE");
+    (cvar = CreateConVar("kse_private_mode", "0", buffer)).AddChangeHook(CVarPrivateMode);
+    privateMode = cvar.BoolValue;
 
 	AutoExecConfig(true, "kill_screen_ex");
 }
