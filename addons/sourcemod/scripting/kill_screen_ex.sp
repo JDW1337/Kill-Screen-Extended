@@ -8,13 +8,13 @@
 
 #pragma semicolon 1
 #pragma newdecls required
-#pragma tabsize 4
+#pragma tabsize 0
 
 public Plugin myinfo = 
 {
 	name = "Kill Screen Extended",
 	author = "JDW",
-	version = "1.1",
+	version = "1.2",
 	url = "devengine.tech"
 };
 
@@ -150,7 +150,7 @@ public void Event_PlayerDeath(Event event, const char[] name, bool dontBroadcast
 
 	client = GetClientOfUserId(event.GetInt("attacker"));
 
-	if(privateMode && !pAccess[client])
+	if(client && privateMode && !pAccess[client])
 	{
 		return;
 	}
@@ -347,7 +347,7 @@ public Action ShowMenuCommand(int client, int args)
 {
 	if(privateMode && !pAccess[client])
 	{
-		DCPrintToChat(client, "%T", "NO_ACCESS", client);
+		DCPrintToChat(client, "%T%T", "PREFIX", client, "NO_ACCESS", client);
 
 		return Plugin_Handled;
 	}

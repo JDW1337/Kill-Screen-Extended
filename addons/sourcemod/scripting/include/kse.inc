@@ -14,6 +14,11 @@
 */
 native bool KSE_GrantAccess(const int client);
 
+stock bool PrivateModCheck()
+{
+    return GetConVarBool(FindConVar("kse_private_mode"));
+}
+
 public SharedPlugin __pl_kse = 
 {
 	name = "kse",

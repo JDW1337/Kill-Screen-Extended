@@ -1,5 +1,10 @@
 "Phrases"
 {
+    "PREFIX"
+    {
+        "ru" "{team}[KSE]{green}"
+        "en" "{team}[KSE]{green}"
+    }
     "MIN_DURATION"
     {
         "ru" "Минимальное время затемнения"
@@ -32,8 +37,8 @@
     }
     "NO_ACCESS"
     {
-        "ru" "{team}[KSE]{green}У вас нет доступа"
-        "en" "{team}[KSE]{green}You do not have access"
+        "ru" "У вас нет доступа"
+        "en" "You do not have access"
     }
     "MENU_TITLE"
     {
@@ -74,5 +79,10 @@
     {
         "ru" "Время затемнения"
         "en" "Dimming time"
+    }
+    "WELCOME"
+    {
+        "ru" "Вам доступна команда: !screen"
+        "en" "The command is available to you: !screen"
     }
 }
