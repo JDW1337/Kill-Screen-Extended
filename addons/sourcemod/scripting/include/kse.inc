@@ -22,7 +22,7 @@ stock bool PrivateModCheck()
 public SharedPlugin __pl_kse = 
 {
 	name = "kse",
-	file = "kse.smx",
+	file = "kill_screen_ex.smx",
     #if defined REQUIRE_PLUGIN
         required = 1
     #else
